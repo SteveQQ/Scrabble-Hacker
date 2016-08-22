@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ScrabbleHacker</string>
+    <string name="inputHint">Enter Your Letters</string>
+    <string name="generateButton">FIND</string>
 </resources>
