@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:onClick="backToInput"
         android:background="@color/buttonColor"
         android:text="@string/backButton"
         android:textSize="30sp"
