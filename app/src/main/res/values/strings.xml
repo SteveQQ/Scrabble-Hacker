@@ -2,4 +2,6 @@
     <string name="app_name">ScrabbleHacker</string>
     <string name="inputHint">Enter Your Letters</string>
     <string name="generateButton">FIND</string>
+    <string name="resultsLabel">I found your words:</string>
+    <string name="backButton">BACK</string>
 </resources>

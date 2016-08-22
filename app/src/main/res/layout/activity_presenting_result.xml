@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,24 +8,28 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     android:background="@color/themeColor"
-    tools:context="com.steveq.scrabblehacker.InputLettersActivity">
+    tools:context="com.steveq.scrabblehacker.PresentingResultActivity">
 
-    <EditText
-        android:id="@+id/inputArea"
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:hint="@string/inputHint"
-        android:textSize="40sp"/>
+        android:layout_marginBottom="10dp"
+        android:text="@string/resultsLabel"
+        android:textSize="30sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/back"/>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:background="@color/buttonColor"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:text="@string/generateButton"
-        android:layout_marginBottom="40dp"
+        android:text="@string/backButton"
         android:textSize="30sp"
         android:textColor="@color/themeColor"/>
-</RelativeLayout>
+
+</LinearLayout>

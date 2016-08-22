@@ -2,7 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#000000</color>
     <color name="themeColor">#FF8400</color>
     <color name="buttonColor">#FFFFFF</color>
+    <color name="strokeColor">#FFFFFF</color>
+    <color name="rectangleColor">#00000000</color>
 </resources>
