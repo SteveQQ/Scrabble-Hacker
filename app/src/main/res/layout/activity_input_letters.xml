@@ -17,8 +17,10 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:hint="@string/inputHint"
-        android:textSize="40sp"/>
+        android:textSize="40sp"
+        android:maxLength="8"/>
     <Button
+        android:id="@+id/findButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/buttonColor"
@@ -27,6 +29,5 @@
         android:text="@string/generateButton"
         android:layout_marginBottom="40dp"
         android:textSize="30sp"
-        android:onClick="findWords"
         android:textColor="@color/themeColor"/>
 </RelativeLayout>
