@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="@string/resultsLabel"
+        android:scrollbars="vertical"
         android:textSize="30sp"/>
     <TextView
         android:id="@+id/resultArea"
