@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:background="@color/themeColor"
-    tools:context="com.steveq.scrabblehacker.PresentingResultActivity">
+    tools:context=".ui.PresentingResultActivity">
 
     <TextView
         android:layout_width="match_parent"

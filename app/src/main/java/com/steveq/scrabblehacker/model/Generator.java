@@ -1,119 +1,61 @@
 package com.steveq.scrabblehacker.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Generator {
-    private String inputWord = null;
+    private Anagrams mAnagrams;
 
-    public void setInputWord(String inputWord) {
-        this.inputWord = inputWord;
+    public Generator(String inputWord){
+        mAnagrams = new Anagrams(inputWord);
     }
 
-    public int strongOperation(int number) {
-        int result = 0;
-        if(number == 0) {
-            result = 1;
-        }
-        if(number > 0) {
-            result = number * strongOperation(number - 1);
-        }
-        return result;
-    }
-
-    public int permutationWithRepetition(int number, int[] repetitions) {
-        int result = 0;
-        int numenator = strongOperation(number);
-        int denumenator = 1;
-        for (int val : repetitions) {
-            denumenator = strongOperation(val) * denumenator;
-        }
-        result = numenator / denumenator;
-        return result;
-    }
-
-    public int[] getRepetitions(Character[] charList){
-        int[] repetitions = new int[charList.length];
-        ArrayList<Character> repeatedChar = new ArrayList<Character>();
-        for(int i=0; i < charList.length; i++) {
-            repetitions[i]=1;
-            for(int j=0; j < charList.length; j++) {
-                if(j != i){
-                    if(charList[j] == charList[i] && repeatedChar.indexOf(charList[i]) == -1) {
-                        repetitions[i]++;
-                        repeatedChar.add(charList[i]);
-                    }
-                }
-            }
-        }
-        return repetitions;
-    }
-
-    public ArrayList<Character> swapIndexes(ArrayList<Character> charList, int index1, int index2) {
-        Character tmp1 = charList.get(index1);
-        Character tmp2 = charList.get(index2);
-        charList.remove(index1);
-        charList.add(index1,tmp2);
-        System.out.println(charList);
-        charList.remove(index2);
-        charList.add(index2,tmp1);
-        System.out.println(charList);
-        return charList;
-    }
-
-    public String getStringRepresentation(ArrayList<Character> list)
-    {
+    public String getStringRepresentation(ArrayList<Character> list) {
         StringBuilder builder = new StringBuilder(list.size());
-        for(Character ch: list)
-        {
+        for (Character ch : list) {
             builder.append(ch);
         }
         return builder.toString();
     }
 
-    public ArrayList<String> generateAnagrams(String word){
+    private ArrayList<Character> createCharacterList(String string) {
+        ArrayList<Character> result = new ArrayList<>();
+        for (Character character : string.toCharArray()) {
+            result.add(character);
+        }
+        return result;
+    }
 
-        char[] charsOrigin = word.toCharArray();
+
+    public ArrayList<String> generateAnagrams(String word) {
         ArrayList<String> anagramsList = new ArrayList<>();
-        String acronymAsString = null;
-
-        ArrayList<Character> charsToModify = new ArrayList<>();
-        for (int i=0; i < charsOrigin.length; i++) {
-            charsToModify.add(charsOrigin[i]);
-        }
-
-        if (charsOrigin.length == 2) {
-            charsToModify = swapIndexes(charsToModify, 0, 1);
-            acronymAsString = getStringRepresentation(charsToModify);
-            anagramsList.add(String.valueOf(charsOrigin));
-            anagramsList.add(acronymAsString);
-        }
-        if (charsOrigin.length > 2) {
-            Character tempRemovedChar = null;
-            for(int i = 0; i < charsOrigin.length; i++) {
+        ArrayList<Character> charsToRearrange = createCharacterList(word);
+        if (word.length() == 2) {
+            Collections.swap(charsToRearrange, 0, 1);
+            anagramsList.add(word);
+            anagramsList.add(getStringRepresentation(charsToRearrange));
+        } else {
+            ArrayList<String> metaAnagramsList;
+            for (int i = 0; i < word.length(); i++) {
                 if (i > 0) {
-                    charsToModify = swapIndexes(charsToModify, 0, i);
+                    Collections.swap(charsToRearrange, 0, i);
                 }
-                Character temporaryRemovedLetter = charsToModify.get(0);
-                tempRemovedChar = charsToModify.get(0);
-                charsToModify.remove(0);
-                ArrayList<String> partAnagramsList = new ArrayList<>(generateAnagrams(getStringRepresentation(charsToModify)));
-                String singleWord = null;
-                for (int j = 0; j < partAnagramsList.size(); j++) {
-                    singleWord = Character.toString(temporaryRemovedLetter) + partAnagramsList.get(j);
-                    partAnagramsList.set(j, singleWord);
+                Character temporaryRemovedLetter = charsToRearrange.get(0);
+                charsToRearrange.remove(0);
+                metaAnagramsList = new ArrayList<>(generateAnagrams(getStringRepresentation(charsToRearrange)));
+                for (int j = 0; j < metaAnagramsList.size(); j++) {
+                    metaAnagramsList.set(j, Character.toString(temporaryRemovedLetter) + metaAnagramsList.get(j));
                 }
-                for (String el : partAnagramsList) {
-                    if (anagramsList.indexOf(el) < 0 ) {
+                for (String el : metaAnagramsList) {
+                    if (anagramsList.indexOf(el) < 0) {
                         anagramsList.add(el);
                     }
                 }
-                charsToModify.add(0, tempRemovedChar);
-                charsToModify = swapIndexes(charsToModify, i, 0);
+                charsToRearrange.add(0, temporaryRemovedLetter);
+                Collections.swap(charsToRearrange, i, 0);
             }
         }
-
-        anagramsList.remove(inputWord);
-        System.out.println(anagramsList.size());
+        anagramsList.remove(mAnagrams.getOriginWord());
         return anagramsList;
     }
 }

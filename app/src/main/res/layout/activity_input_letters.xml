@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/themeColor"
-    tools:context="com.steveq.scrabblehacker.InputLettersActivity">
+    tools:context=".ui.InputLettersActivity">
 
     <EditText
         android:id="@+id/inputArea"
@@ -18,7 +18,7 @@
         android:layout_centerInParent="true"
         android:hint="@string/inputHint"
         android:textSize="40sp"
-        android:maxLength="8"/>
+        android:maxLength="7"/>
     <Button
         android:id="@+id/findButton"
         android:layout_width="wrap_content"
