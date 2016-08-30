@@ -28,20 +28,15 @@ public class PresentingResultActivity extends AppCompatActivity {
         mResults.setMovementMethod(new ScrollingMovementMethod());
 
         Intent receivedIntent = getIntent();
-        ArrayList<String> anagrams = receivedIntent.getStringArrayListExtra("anagrams");
-        StringBuilder stringBuilder = new StringBuilder();
-        for(String anagram : anagrams){
-            stringBuilder.append(anagram + "\n");
-        }
-        mResults.setText(stringBuilder);
+        mResults.setText(receivedIntent.getStringExtra("words"));
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PresentingResultActivity.this, InputLettersActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
+
     }
 
 }

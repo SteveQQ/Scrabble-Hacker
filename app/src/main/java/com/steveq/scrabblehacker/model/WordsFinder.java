@@ -14,33 +14,27 @@ import java.util.Set;
 
 public class WordsFinder {
 
-    private Context mContext;
-    private Resources mResources;
-    private Set<String> mDictWordsList;
-    private ArrayList<String> mWordsList;
     private Generator mGenerator;
+    private Anagrams mAnagrams;
+    private Set<String> mDictWordsList;
 
     public WordsFinder(Context ctx){
-        mContext = ctx;
         mDictWordsList = new HashSet<>();
-        mGenerator = new Generator("");
+        mAnagrams = new Anagrams();
+        mGenerator = new Generator(mAnagrams);
+        readFile(ctx);
     }
 
-    public ArrayList<String> getWordsList() {
-        return mWordsList;
+    public Anagrams getAnagrams() {
+        return mAnagrams;
     }
 
-    public void setWordsList(ArrayList<String> wordsList) {
-        mWordsList = wordsList;
-    }
-
-    public void readFile(){
-        mResources = mContext.getResources();
-        InputStream is = mResources.openRawResource(mResources.getIdentifier("slowa", "raw", mContext.getPackageName()));
+    public void readFile(Context ctx){
+        Resources resources = ctx.getResources();
+        InputStream is = resources.openRawResource(resources.getIdentifier("slowa", "raw", ctx.getPackageName()));
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader reader = new BufferedReader(isr);
         String line;
-
         try{
             while((line = reader.readLine()) != null){
                 mDictWordsList.add(line);
@@ -53,12 +47,15 @@ public class WordsFinder {
     }
 
     public void searchForWords(String input){
-        ArrayList<String> anagrams = mGenerator.generateAnagrams(input);
-        readFile();
-        for (String anagram : anagrams){
-            if(mDictWordsList.contains(anagram)){
-                mWordsList.add(anagram);
+        mAnagrams.setOriginWord(input);
+        mAnagrams.addAnagramsList(mGenerator.generateAnagrams(input));
+        ArrayList<String> realWords = new ArrayList<>();
+        for (String anagram : mAnagrams.getAnagramsList()) {
+            if (mDictWordsList.contains(anagram)) {
+                realWords.add(anagram);
             }
         }
+        mAnagrams.setRealWordsList(realWords);
+        mAnagrams.setRealWords();
     }
 }

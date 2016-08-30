@@ -6,8 +6,8 @@ import java.util.Collections;
 public class Generator {
     private Anagrams mAnagrams;
 
-    public Generator(String inputWord){
-        mAnagrams = new Anagrams(inputWord);
+    public Generator(Anagrams anagrams){
+        mAnagrams = anagrams;
     }
 
     public String getStringRepresentation(ArrayList<Character> list) {
@@ -45,11 +45,7 @@ public class Generator {
                 metaAnagramsList = new ArrayList<>(generateAnagrams(getStringRepresentation(charsToRearrange)));
                 for (int j = 0; j < metaAnagramsList.size(); j++) {
                     metaAnagramsList.set(j, Character.toString(temporaryRemovedLetter) + metaAnagramsList.get(j));
-                }
-                for (String el : metaAnagramsList) {
-                    if (anagramsList.indexOf(el) < 0) {
-                        anagramsList.add(el);
-                    }
+                    anagramsList.add(metaAnagramsList.get(j));
                 }
                 charsToRearrange.add(0, temporaryRemovedLetter);
                 Collections.swap(charsToRearrange, i, 0);

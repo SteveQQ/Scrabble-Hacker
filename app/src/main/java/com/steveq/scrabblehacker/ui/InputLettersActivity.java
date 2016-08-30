@@ -18,10 +18,7 @@ import java.util.ArrayList;
 public class InputLettersActivity extends AppCompatActivity {
     private EditText mInputArea;
     private Button mFindButton;
-    private String input;
-    private Generator mGenerator;
-    ArrayList<String> anagrams;
-    WordsFinder wordsFinder;
+    private WordsFinder mWordsFinder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,34 +26,29 @@ public class InputLettersActivity extends AppCompatActivity {
 
         mInputArea = (EditText)findViewById(R.id.inputArea);
         mFindButton = (Button)findViewById(R.id.findButton);
-        wordsFinder = new WordsFinder(InputLettersActivity.this);
-        anagrams = new ArrayList<>();
+        mWordsFinder = new WordsFinder(this);
+
 
         mFindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input = mInputArea.getText().toString();
-                mGenerator = new Generator(input);
+                String input = mInputArea.getText().toString();
                 if(!input.equals("")) {
+                    mWordsFinder.searchForWords(input);
                     Intent intent = new Intent(InputLettersActivity.this, PresentingResultActivity.class);
-                    anagrams = mGenerator.generateAnagrams(input);
-                    intent.putStringArrayListExtra("anagrams", anagrams);
+                    intent.putExtra("words", mWordsFinder.getAnagrams().getRealWords());
                     startActivity(intent);
                 } else {
                     Toast toast = Toast.makeText(InputLettersActivity.this, R.string.errorToast, Toast.LENGTH_LONG );
                     toast.show();
                 }
-                /*if(!input.equals("")) {
-                    Intent intent = new Intent(InputLettersActivity.this, PresentingResultActivity.class);
-                    wordsFinder.searchForWords(input);
-                    intent.putStringArrayListExtra("words", wordsFinder.getWordsList());
-                    startActivity(intent);
-                } else {
-                    Toast toast = Toast.makeText(InputLettersActivity.this, R.string.errorToast, Toast.LENGTH_LONG );
-                    toast.show();
-                }*/
             }
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mInputArea.setText("");
+    }
 }
