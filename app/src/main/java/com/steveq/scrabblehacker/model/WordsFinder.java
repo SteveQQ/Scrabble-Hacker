@@ -41,21 +41,24 @@ public class WordsFinder {
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
-        } finally {
-            Log.d("SIZE", mDictWordsList.size() + "");
         }
     }
 
     public void searchForWords(String input){
+        String word = input;
         mAnagrams.setOriginWord(input);
+        /*while(input.length() >= 2){
+
+            input = input.substring(0, input.length()-1);
+        }*/
         mAnagrams.addAnagramsList(mGenerator.generateAnagrams(input));
-        ArrayList<String> realWords = new ArrayList<>();
+        ArrayList<String> metaList = new ArrayList<>();
         for (String anagram : mAnagrams.getAnagramsList()) {
             if (mDictWordsList.contains(anagram)) {
-                realWords.add(anagram);
+                metaList.add(anagram);
             }
         }
-        mAnagrams.setRealWordsList(realWords);
+        mAnagrams.setRealWordsList(metaList);
         mAnagrams.setRealWords();
     }
 }

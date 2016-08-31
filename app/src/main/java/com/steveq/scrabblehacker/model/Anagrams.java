@@ -35,7 +35,7 @@ public class Anagrams {
         return mRealWordsList;
     }
 
-    protected void setRealWordsList(ArrayList<String> realWordsList) {
+    public void setRealWordsList(ArrayList<String> realWordsList) {
         mRealWordsList = realWordsList;
     }
 
@@ -43,7 +43,7 @@ public class Anagrams {
         return mRealWords;
     }
 
-    protected void setRealWords() {
+    public void setRealWords() {
         if (mRealWordsList != null) {
             StringBuilder stringBuilder = new StringBuilder();
             for(String word : mRealWordsList) {
@@ -51,6 +51,16 @@ public class Anagrams {
                 stringBuilder.append("\n");
             }
             mRealWords = stringBuilder.toString();
+        } else {
+            mRealWords = "";
         }
+    }
+
+    public void clearWordsList(){
+        mRealWordsList.clear();
+    }
+
+    public void clearAnagramsList(){
+        mAnagramsList.clear();
     }
 }

@@ -47,8 +47,11 @@ public class InputLettersActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         mInputArea.setText("");
+        mWordsFinder.getAnagrams().clearWordsList();
+        mWordsFinder.getAnagrams().setRealWords();
+        mWordsFinder.getAnagrams().clearAnagramsList();
     }
 }

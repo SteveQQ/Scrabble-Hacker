@@ -43,6 +43,7 @@ public class Generator {
                 Character temporaryRemovedLetter = charsToRearrange.get(0);
                 charsToRearrange.remove(0);
                 metaAnagramsList = new ArrayList<>(generateAnagrams(getStringRepresentation(charsToRearrange)));
+                mAnagrams.addAnagramsList(metaAnagramsList);
                 for (int j = 0; j < metaAnagramsList.size(); j++) {
                     metaAnagramsList.set(j, Character.toString(temporaryRemovedLetter) + metaAnagramsList.get(j));
                     anagramsList.add(metaAnagramsList.get(j));
